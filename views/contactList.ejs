@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/stylesheets/list.css" />
+
+    <!----===== Iconscout CSS ===== -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <title>All Contacts</title>
+  </head>
+  <body>
+    <nav>
+      <div class="logo-name">
+        <div class="logo-image">
+          <img
+            src="../images/Empower Her (1).png"
+            alt=""
+            width="60"
+            height="55"
+          />
+        </div>
+        <span class="logo_name">All Contacts</span>
+      </div>
+      <div class="menu-items">
+        <ul class="nav-links">
+          <li>
+            <a href="/home">
+              <i class="uil uil-estate"></i>
+              <span class="link-name">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="/addcontact">
+              <i class="uil uil-files-landscapes"></i>
+              <span class="link-name">Add Contact</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="uil uil-chart"></i>
+              <span class="link-name">Services</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="uil uil-thumbs-up"></i>
+              <span class="link-name">Education</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="uil uil-comments"></i>
+              <span class="link-name">Help</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="logout-mode">
+          <li>
+            <a href="/logout">
+              <i class="uil uil-signout"></i>
+              <span class="link-name">Logout</span>
+            </a>
+          </li>
+          <li class="mode">
+            <a href="#">
+              <i class="uil uil-moon"></i>
+              <span class="link-name">Dark Mode</span>
+            </a>
+            <div class="mode-toggle">
+              <span class="switch"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <section class="dashboard">
+      <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+        <div class="search-box">
+          <i class="uil uil-search"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+
+        <!--<img src="images/profile.jpg" alt="">-->
+      </div>
+      <div class="dash-content">
+        <div class="overview">
+          <div class="title">
+            <img src="../images/teamwork.png" alt="" width="40" height="40" />
+            <span class="text">Contact List</span>
+          </div>
+          <div class="boxes">
+            <div class="box box1">
+              <img src="../images/contacts.png" alt="" width="40" height="40" />
+              <span class="text">Total Contacts</span>
+              <span class="number"><%= userr.contact.length%></span>
+            </div>
+            <div class="box box2">
+              <img src="../images/call.png" alt="" width="50" height="50" />
+              <span class="text">New Contact</span>
+              <span class="number"><%= userr.contact.length%></span>
+            </div>
+            <div class="box box3">
+              <img src="../images/delete.png" alt="" width="50" height="50" />
+              <span class="text">Recent Delete Contact</span>
+              <span class="number">0</span>
+            </div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="title">
+            <i class="uil uil-clock-three"></i>
+            <span class="text">Your All Contacts</span>
+          </div>
+
+          <div class="activity-data">
+            <div class="data names">
+              <span class="data-title">Name</span>
+              <% userr.contact.forEach(function(e,index){ %>
+              <span class="data-list"><%= e.usercontact%></span>
+              <% })%>
+            </div>
+
+            <div class="data joined">
+              <span class="data-title">Phone Numbers</span>
+              <% userr.contact.forEach(function(e,index){ %>
+              <span id="phone_<%= index%>" class="data-list"
+                ><%= e.email%></span
+              >
+              <% })%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/javascripts/list.js"></script>
+    <script>
+      <% userr.contact.forEach(function(e, index) { %>
+        document.getElementById('phone_<%= index %>').addEventListener("click", async function() {
+          const data = "<%= e.email %>";
+          console.log('====================================');
+          console.log(data);  // Logging the email to ensure it's being sent
+          console.log('====================================');
+    
+          if (data) {
+            let confirmm = window.confirm("Click ok to send your location to this number");
+            
+            if (confirmm) {
+              try {
+                // Send the email to the server via a POST request
+                const response = await fetch('/submitPhoneNumbers', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    email: data,
+                  })
+                });
+    
+                // Check for successful response
+                if (response.ok) {
+                  console.log("Request was successful");
+                  window.location.href = "https://chacha-tracker.onrender.com"
+                  // Uncomment this to navigate to the new URL
+                } else {
+                  console.error('Failed to send data to the server');
+                }
+              } catch (error) {
+                console.error('Error:', error);
+              }
+            }
+          }
+        });
+      <% }) %>
+    </script>
+    
+  </body>
+</html>

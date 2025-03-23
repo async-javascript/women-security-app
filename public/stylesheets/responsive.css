@@ -1,0 +1,64 @@
+@media(max-width: 400px) {
+    .logo-text {
+        font-family: "Emblema One", system-ui;
+        font-weight: 200;
+        font-style: normal;
+        font-size: 22px;
+      }
+    
+} 
+@media(max-width: 576px) {
+    .navbar{
+        text-align: center;
+    }
+
+   #our-services{
+        display: none;
+   }
+   #test{
+    display: none;
+   }
+   .main{
+    display: none;
+   }
+   #accordionExample{
+    display: none;
+   }
+   .footer{
+    display: none;
+   }
+   .slider-navigations{
+    display: none;
+   }
+   .slider-item .slide-content .slide-button {
+    display: block;
+    margin-top: 45px;
+    background-color: #1b2845;
+    background-image: linear-gradient(315deg, #1b2845 0%, #000f89 74%);
+    color: #fff;
+    width: 0;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: 2px solid #fff;
+   
+   
+   
+   
+  }
+  .track{
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+   font-size: 16px;
+   color: rgb(82, 17, 17);
+  }
+
+ 
+ 
+} 

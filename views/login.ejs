@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+
+	<link rel="stylesheet" href="/stylesheets/login.css">
+</head>
+
+<body>
+	<div class="error-popup" id="errorPopup">
+		<ul id="errorList"></ul>
+	</div>
+	<div id="container" class="container">
+		<!-- FORM SECTION -->
+		<div class="row">
+			<!-- SIGN UP -->
+			<div class="col align-items-center flex-col sign-up">
+				<div class="form-wrapper align-items-center">
+
+
+					<div class="form sign-up">
+						<form id="for" action="/register" method="post">
+
+							<div class="input-group">
+								<i class='bx bxs-user'></i>
+								<input type="text" placeholder="Full Name" name="Fullname">
+							</div>
+							<div class="input-group">
+								<i class='bx bxs-user'></i>
+								<input type="text" placeholder="Username" name="username">
+							</div>
+							<div class="input-group">
+								<i class='bx bx-mail-send'></i>
+								<input type="email" placeholder="Email" name="email">
+							</div>
+							<div class="input-group">
+								<i class='bx bxs-lock-alt'></i>
+								<input type="phone" placeholder="Phone Number" name="phone">
+							</div>
+							<div class="input-group">
+								<i class='bx bxs-lock-alt'></i>
+								<input type="password" placeholder="Password" name="password">
+							</div>
+							<button id="myAnchor" type="submit">
+								Sign up
+							</button>
+							<p>
+								<span>
+									Already have an account?
+								</span>
+								<b onclick="toggle()" class="pointer" style="color: darkblue;">
+									Sign in here
+								</b>
+							</p>
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- END SIGN UP -->
+			<!-- SIGN IN -->
+			<div class="col align-items-center flex-col sign-in">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-in">
+<form action="/login" method="post">
+						<h2 style="color: darkcyan;"> Please Login your Account</h2>
+						<div class="input-group">
+							<i class='bx bxs-user'></i>
+							<input type="text" placeholder="Username" name="username">
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" placeholder="Password" name="password">
+						</div>
+						<button>
+							Sign in
+						</button>
+						<p>
+							<b>
+								Forgot password?
+							</b>
+						</p>
+						<p>
+							<span>
+								Don't have an account?
+							</span>
+							<b onclick="toggle()" class="pointer" style="color: darkblue;">
+								Sign up here
+							</b>
+						</p>
+						</form>
+					</div>
+				</div>
+				<div class="form-wrapper">
+
+				</div>
+			</div>
+			<!-- END SIGN IN -->
+		</div>
+		<!-- END FORM SECTION -->
+		<!-- CONTENT SECTION -->
+		<div class="row content-row">
+			<!-- SIGN IN CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="text sign-in">
+					<h2>
+
+						Welcome
+						<img src="../images/img-1.png" alt="" class="first">
+					</h2>
+
+
+				</div>
+				<div class="img sign-in">
+
+				</div>
+			</div>
+			<!-- END SIGN IN CONTENT -->
+			<!-- SIGN UP CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="img sign-up">
+					<img src="../images/img-2.png" alt="">
+				</div>
+				<div class="text sign-up">
+					<h2>
+						Join with us
+					</h2>
+
+				</div>
+			</div>
+			<!-- END SIGN UP CONTENT -->
+		</div>
+		<!-- END CONTENT SECTION -->
+	</div>
+
+	<script src="/javascripts/login.js"></script>
+	<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+		<script>
+			const errors = <%- JSON.stringify(errors) %>;
+	
+			const errorPopup = document.getElementById('errorPopup');
+			const errorList = document.getElementById('errorList');
+	
+			// Clear any existing errors
+			errorList.innerHTML = '';
+	
+			// Loop through the errors and display them
+			errors.forEach(function(error) {
+				const li = document.createElement('p');
+				li.textContent = `❌ ${error.msg}`;
+				errorList.appendChild(li);
+			});
+	
+			// Show the error popup
+			errorPopup.style.display = 'block';
+	
+			// Set a timeout to hide the error popup after 5 seconds (5000ms)
+			setTimeout(function() {
+				errorPopup.style.display = 'none';
+			}, 5000);
+		</script>
+	<% } else if (typeof errors !== 'undefined' && errors.length === 0) { %>
+		<script>
+			const errors = <%- JSON.stringify(errors) %>;
+	
+			console.log('====================================');
+			console.log(errors);
+			console.log('====================================');
+	
+			const errorPopup = document.getElementById('errorPopup');
+			const errorList = document.getElementById('errorList');
+	
+			// Clear any existing errors
+			errorList.innerHTML = '';
+	
+			// Display success message
+			const li = document.createElement('p');
+			li.textContent = "✅️ Registration Successful";
+			errorList.appendChild(li);
+	
+			// Style the success message (green background)
+			errorList.style.color = " #4F8A10";  // Green background for success
+	
+			// Show the error popup (actually the success message popup)
+			errorPopup.style.display = 'block';
+			errorPopup.style.backgroundColor = "#DFF2BF";
+	
+			// Set a timeout to hide the success popup after 5 seconds (5000ms)
+			setTimeout(function() {
+				errorPopup.style.display = 'none';
+			}, 5000);
+		</script>
+	<% } %>
+	
+
+</body>
+
+</html>
