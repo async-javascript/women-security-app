@@ -181,7 +181,7 @@ router.get("/contactList",requireAuth,async(req,res)=>{
 
     
 
-    res.render("ContactList",{userr})
+    res.render("contactList",{userr})
 })
 router.get("/logout", (req, res) => {
   res.clearCookie("user"); // Clear the login cookie
