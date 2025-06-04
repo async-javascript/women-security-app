@@ -13,9 +13,7 @@ connectToDb();
 
 
 const app = express();
-app.use(cors({
-  origin: "*"
-}))
+app.use(cors())
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
@@ -23,19 +21,20 @@ app.set("view engine", "ejs");
 // Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
+
 
 // Static files middleware (public folder)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Session middleware (important to add this before your routes)
 app.use(session({
-  secret: 'yourSecretKey',  // Use a strong secret key here
-  resave: false,
-  saveUninitialized: true,
+  secret: 'your-secret-key', // Replace with a strong secret in production
+  resave: false,             // Don't save session if unmodified
+  saveUninitialized: true,   // Save new sessions
   cookie: {
-    httpOnly: true,  // Helps prevent XSS attacks
-    secure: false,   // Set to true in production (HTTPS)
-    maxAge: 1000 * 60 * 60 * 24 * 365  // Session expiration in 1 day
+    secure: false,           // Set to true if using HTTPS (production)
+    maxAge: 1000 * 60 * 30  // Session expiration: 30 minutes
   }
 }));
 

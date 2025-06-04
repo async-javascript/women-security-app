@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nearby Explorer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+    }
+.category.active {
+  background-color: #b62173 !important;
+  color: white !important;
+  font-weight: 600;
+}
+    #map {
+      height: 100vh;
+      width: 100%;
+      border: none;
+      z-index: 0;
+      /* keep map behind bottom container */
+    }
+
+    .bottom-container {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.97);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      padding: 1rem 1.5rem;
+      z-index: 10;
+      /* higher than map */
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      animation: slideUp 0.6s ease;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 12px 20px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-bar button {
+      background-color: #b62173;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-bar button:hover {
+      background-color: #9e1b63;
+    }
+
+    .categories {
+      display: none;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .category {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #f7f7f7;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.05rem;
+    }
+
+    .category:hover {
+      background-color: #c789c7;
+      color: white;
+    }
+
+    .category img {
+      height: 28px;
+      width: 28px;
+    }
+
+    .results {
+      max-height: 35vh;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .result-item {
+      background: #fff;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Loader Styles */
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 6px solid #ddd;
+      border-top: 6px solid #b62173;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .category {
+        flex: auto;
+        justify-content: center;
+      }
+
+      .results {
+        max-height: 30vh;
+      }
+
+      .search-bar {
+        flex-direction: column;
+        /* Stack vertically */
+        align-items: stretch;
+        /* Make both full width */
+      }
+
+      .search-bar input,
+      .search-bar button {
+        width: 100%;
+        /* Full width */
+      }
+
+      #searchInput {
+        display: block;
+      }
+    }
+    #suggestionList li {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+#suggestionList li:last-child {
+  border-bottom: none;
+  border-radius: 0 0 10px 10px;
+}
+
+#suggestionList li:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+#suggestionList li:hover {
+  background-color: #c789c7;
+  color: #fff;
+}
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <div class="bottom-container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search for a place..." id="searchInput" onclick="toggleCategories()" />
+      <button onclick="handleSearch()">Search</button>
+    </div>
+<div id="suggestions" style="position: relative;">
+ <ul id="suggestionList" style="
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  z-index: 20;
+  display: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 4px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+"></ul>
+
+</div>
+    <div class="categories" id="categoryContainer">
+      <div class="category" onclick="showDummyData('hotel')">
+        <img src="/images/hotel.png" alt="" /> <span>Hotels</span>
+      </div>
+      <div class="category" onclick="showDummyData('police')">
+        <img src="/images/police-station.png" alt="" />
+        <span>Police Stations</span>
+      </div>
+      <div class="category" onclick="showDummyData('hospital')">
+        <img src="/images/hospital.png" alt="" /> <span>Hospitals</span>
+      </div>
+      <div class="category" onclick="showDummyData('restaurant')">
+        <img src="/images/restaurant.png" alt="" /> <span>Restaurants</span>
+      </div>
+    </div>
+
+    <div class="results" id="resultsContainer"></div>
+  </div>
+
+  <!-- Loader Overlay -->
+  <div id="loader" class="loader-overlay" style="display: none">
+    <div class="spinner"></div>
+  </div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+  let map, userMarker;
+
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        // If map isn't initialized yet
+        if (!map) {
+          map = L.map("map").setView([lat, lon], 16);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "© OpenStreetMap contributors",
+          }).addTo(map);
+
+          userMarker = L.marker([lat, lon]).addTo(map).bindPopup("You are here!").openPopup();
+        } else {
+          // Update marker position
+          userMarker.setLatLng([lat, lon]);
+          map.setView([lat, lon]); // Optional: recenters map as user moves
+        }
+      },
+      (error) => {
+        alert("Geolocation failed: " + error.message);
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000,
+      }
+    );
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+</script>
+
+  <script>
+   function toggleCategories() {
+  const categoryContainer = document.getElementById("categoryContainer");
+  const resultsContainer = document.getElementById("resultsContainer");
+
+  // Toggle category visibility
+  categoryContainer.style.display =
+    categoryContainer.style.display === "flex" ? "none" : "flex";
+  categoryContainer.style.flexWrap = "wrap";
+
+  // Hide results when search input is clicked
+  resultsContainer.style.display = "none";
+
+  // Remove active state from all category buttons
+  const allCategories = document.querySelectorAll(".category");
+  allCategories.forEach((el) => el.classList.remove("active"));
+}
+
+    function showDummyData(type) {
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported by your browser.");
+    return;
+  }
+
+  // Highlight the selected category
+  const allCategories = document.querySelectorAll(".category");
+  allCategories.forEach((el) => el.classList.remove("active"));
+  const clickedCategory = Array.from(allCategories).find(cat =>
+    cat.textContent.trim().toLowerCase().includes(type)
+  );
+  if (clickedCategory) clickedCategory.classList.add("active");
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords;
+      const url = `/nearplaces?lat=${latitude}&lng=${longitude}&type=${type}`;
+
+      document.getElementById("loader").style.display = "flex";
+
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          const resultsContainer =
+            document.getElementById("resultsContainer");
+          if (data.error) {
+            resultsContainer.innerHTML = `<div class="result-item">${data.error}</div>`;
+          } else if (data.results.length === 0) {
+            resultsContainer.innerHTML = `<div class="result-item">No results found.</div>`;
+          } else {
+            resultsContainer.innerHTML = data.results
+              .map(
+                (place) => `
+          <div class="result-item">
+            <strong>${place.name}</strong><br/>
+            ${place.vicinity || "No address provided"}
+            <i onclick="window.location='/leaflet?lat=${place.geometry.location.lat}&lng=${place.geometry.location.lng}'" class="fas fa-directions"></i>
+          </div>
+        `
+              )
+              .join("");
+          }
+          resultsContainer.style.display = "block";
+        })
+        .catch((err) => {
+          console.error(err);
+          document.getElementById(
+            "resultsContainer"
+          ).innerHTML = `<div class="result-item">Failed to fetch data.</div>`;
+        })
+        .finally(() => {
+          document.getElementById("loader").style.display = "none";
+        });
+    },
+    (error) => {
+      alert("Failed to retrieve location.");
+      console.error(error);
+        const allCategories = document.querySelectorAll(".category");
+  allCategories.forEach((el) => el.classList.remove("active"));
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    }
+  );
+}
+
+    function handleSearch() {
+      const query = document.getElementById("searchInput").value.trim();
+      const resultsContainer = document.getElementById("resultsContainer");
+      const categoryContainer = document.getElementById("categoryContainer");
+
+      if (!query) {
+        alert("Please enter something to search.");
+        return;
+      }
+
+      // Hide categories
+      categoryContainer.style.display = "none";
+
+      // Get user location and search
+      if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const url = `/nearplaces?lat=${latitude}&lng=${longitude}&type=${encodeURIComponent(
+            query
+          )}`;
+
+          document.getElementById("loader").style.display = "flex";
+
+          fetch(url)
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.error || !data.results) {
+                resultsContainer.innerHTML = `<div class="result-item">No results found.</div>`;
+              } else {
+                resultsContainer.innerHTML = data.results
+                  .map(
+                    (place) => `
+              <div class="result-item">
+                <strong>${place.name}</strong><br/>
+                ${place.vicinity || "No address provided"}
+                
+  <i onclick="window.location='/leaflet?lat=${place.geometry.location.lat}&lng=${place.geometry.location.lng
+                      }'" class="fas fa-directions"></i>
+              </div>
+            `
+                  )
+                  .join("");
+              }
+              resultsContainer.style.display = "block";
+            })
+            .catch((err) => {
+              console.error(err);
+              resultsContainer.innerHTML = `<div class="result-item">Search failed.</div>`;
+            })
+            .finally(() => {
+              document.getElementById("loader").style.display = "none";
+            });
+        },
+        (error) => {
+          alert("Unable to retrieve your location.");
+        const allCategories = document.querySelectorAll(".category");
+  allCategories.forEach((el) => el.classList.remove("active"));
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
+        }
+      );
+    }
+    const suggestions = [
+
+  "Atm",
+  "Hotel",
+  "Police Station",
+  "Hospital",
+  "Restaurant",
+  "Cafe",
+  "Library",
+  "Museum",
+  "Park",
+  "School",
+  "Pharmacy",
+  "Gas Station",
+  "Supermarket",
+  "Bank",
+  "Gym",
+  "Cinema",
+
+];
+
+const searchInput = document.getElementById("searchInput");
+const suggestionList = document.getElementById("suggestionList");
+
+searchInput.addEventListener("input", () => {
+  const inputValue = searchInput.value.trim().toLowerCase();
+  console.log(inputValue);
+  
+  suggestionList.innerHTML = "";
+
+  if (!inputValue) {
+    suggestionList.style.display = "none";
+    return;
+  }
+
+  // Filter suggestions based on input
+  const filtered = suggestions.filter(item => item.toLowerCase().startsWith(inputValue));
+
+  if (filtered.length === 0) {
+    suggestionList.style.display = "none";
+    return;
+  }
+
+  // Show suggestions
+  filtered.forEach(suggestion => {
+    const li = document.createElement("li");
+    console.log("mera",suggestion)
+    li.textContent = suggestion;
+    li.style.padding = "8px 12px";
+    li.style.cursor = "pointer";
+
+    li.addEventListener("mousedown", (e) => {
+      e.preventDefault(); // Prevent losing focus on input
+      searchInput.value = suggestion;
+      suggestionList.style.display = "none";
+    });
+
+    li.addEventListener("mouseover", () => {
+      li.style.backgroundColor = "#c789c7";
+      li.style.color = "white";
+    });
+    li.addEventListener("mouseout", () => {
+      li.style.backgroundColor = "white";
+      li.style.color = "black";
+    });
+
+    suggestionList.appendChild(li);
+  });
+
+  suggestionList.style.display = "block";
+});
+
+// Hide suggestions when clicking outside
+document.addEventListener("click", (e) => {
+  if (!searchInput.contains(e.target) && !suggestionList.contains(e.target)) {
+    suggestionList.style.display = "none";
+  }
+});
+
+  </script>
+</body>
+
+</html>

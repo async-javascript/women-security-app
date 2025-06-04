@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forgot Password</title>
+  <style>
+    :root {
+      --primary-color: #7CB9E8;
+      --white: #ffffff;
+      --gray-light: #f0f0f0;
+      --gray-medium: #757575;
+    }
+
+    * {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+h2 i {
+  margin-right: 8px;
+  color: var(--primary-color);
+}
+    body, html {
+      height: 100%;
+      width: 100%;
+      background: url('/images/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-wrapper {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group {
+      position: relative;
+      margin: 1rem 0;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+      color: var(--gray-medium);
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.9rem 1rem 0.9rem 2.5rem;
+      border-radius: 0.5rem;
+      border: 2px solid var(--gray-light);
+      background-color: var(--gray-light);
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: var(--primary-color);
+      background-color: #f9fbff;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: var(--primary-color);
+      color: var(--white);
+      font-weight: 600;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #5a95cc;
+    }
+
+    p {
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+      color: var(--gray-medium);
+    }
+
+    p b {
+      color: var(--primary-color);
+      cursor: pointer;
+    }
+
+    .error-popup {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #FFCCBA;
+      color: #D63301;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(214, 51, 1, 0.3);
+    }
+
+    .error-popup.success {
+      background-color: #DFF2BF;
+      color: #4F8A10;
+    }
+
+    @media (max-width: 500px) {
+      .form-wrapper {
+        padding: 1.5rem;
+        border-radius: 0.8rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="form-wrapper">
+    <form action="/forgot-password" method="POST" onsubmit="return validateEmail()">
+    <h2><i class="fas fa-unlock-alt"></i> Forgot Password</h2>
+      <div class="input-group">
+        <i>&#9993;</i>
+        <input type="text" name="email" id="email" placeholder="Enter your email"/>
+      </div>
+      <button type="submit">Send Reset Link</button>
+      <p>Remembered your password? <b onclick="window.location.href='/'">Login</b></p>
+    </form>
+  </div>
+
+  <div id="popup" class="error-popup"></div>
+
+  <script>
+  function showPopup(message, success = false) {
+    const popup = document.getElementById('popup');
+    popup.textContent = message;
+    popup.className = success ? 'error-popup success' : 'error-popup';
+    popup.style.display = 'block';
+    setTimeout(() => {
+      popup.style.display = 'none';
+    }, 3000);
+  }
+
+  function validateEmail() {
+    const email = document.getElementById('email').value.trim();
+
+    if (!email.includes('@')) {
+      showPopup("Please enter a valid email.");
+      return false;
+    }
+    return true;
+  }
+
+  <% if (typeof message !== 'undefined' && message) { %>
+    window.onload = function() {
+      showPopup("<%= message %>", <%= success ? 'true' : 'false' %>);
+    }
+  <% } %>
+</script>
+
+
+</body>
+</html>

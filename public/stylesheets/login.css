@@ -297,6 +297,13 @@ body {
         transform: translateY(100%);
     } */
 
+    .img img,
+.first {
+  display: none;
+}
+.text.sign-up h2 {
+  display: none;
+}
     .container.sign-in .col.sign-in,
     .container.sign-up .col.sign-up {
         transform: translateY(0);
@@ -355,6 +362,7 @@ body {
  
     
 }
+
 
 .error-popup {
     font-family: Arial, Helvetica, sans-serif;

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Emblema+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/help.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/responsive.css">
+    
+    <title>Help</title>
+
+</head>
+<body>
+       <!-- Navbar Start  -->
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+    <div class="container ">
+      <a class="navbar-brand" href="/home">
+        <img src="../images/Empower Her (1).png" alt="" width="55" height="55" class="rounded-circle">
+      &nbsp; <b class="logo-text text-white">  EmpowerHer </b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto  mb-2 mb-lg-0 gap-4 ">
+          <li class="nav-item ">
+            <a class="nav-link " aria-current="page" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/popup" >Live Tracker</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Services 
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/map">Emergency Services </a></li>
+              <li><a class="dropdown-item" href="/addcontact">Emergency Contact Numbers</a></li>
+              
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/complaint">Grievance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/help">Help</a>
+          </li>
+        </ul>
+        
+      </div>
+    </div>
+  </nav>
+ <!-- Navbar End -->
+
+ <!-- Second Header Start -->
+  <div class="container  d-flex ">
+    
+    <div class="content d-flex mt-3 gap-3">
+      <% if (user) { %>
+      <img src="../images/user.png" alt=""  alt="" width="30" height="30">
+    <p class="fw-bold fs-6"> Hi <%= user.fullname %> </p>
+      <% } %>
+  </div>
+
+  <div class="container-eg-btn-4 mt-1 ms-auto">
+  <a href="/logout" class="button button-7 gap-3">
+    <img src="../images/user-logout.png" alt=""  alt="" width="25" height="23">
+   &nbsp; &nbsp;  &nbsp;  <b> Logout</b></a>
+</div>
+  </div>
+  <!-- Second Header End  -->
+
+<!-- Help panel start  -->
+ <div class="container ">
+    <h1 class="text-center  services">Help and Support</h1>
+    <div class="row">
+        <div class="col-md-6 mt-5">
+        
+<div class="card  p-3 mb-3" style="max-width: 600px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="../images/call.png" class="img-fluid rounded-start" alt="..." height="150" width="150">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title fs-2">Call Us</h5>
+          <p class="card-text "> Our Phone number is  <a href=""> (555) 123-4567</a> </p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card  mb-3" style="max-width: 600px;">
+    <div class="row g-0 p-3">
+      <div class="col-md-4">
+        <img src="../images/google-maps.png" class="img-fluid rounded-start" alt="..." height="150" width="150">      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title fs-2">Our Location</h5>
+          <p class="card-text ">Our office is located in New Delhi , India</p>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-6 mt-5 ">
+  <div class="card mb-3 p-3" style="max-width: 600px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="../images/gmail.png" class="img-fluid rounded-start" alt="..." height="150" width="150">
+      </div>
+      <div class="col-md-8">
+       
+        <div class="card-body">
+     
+          <h5 class="card-title fs-2">Email Us </h5>
+          <p class="card-text">You can email us <a href=""> privacy@womensafetyapp.com</a></p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card  mb-3" style="max-width: 600px;">
+    <div class="row g-0 p-3">
+      <div class="col-md-4">
+        <img src="../images/facebook.png" class="img-fluid rounded-start" alt="..." height="150" width="150">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Social Media </h5>
+          <p class="card-text">Coneect with us with our social media to explore new features <a href="">women-safety.com</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<!-- Help panel end  -->
+
+
+<!-- Accordian start -->
+<div class="accordion d-block  container mt-5" id="accordionExample">
+    <h1 class="text-center services"> FAQ'S </h1> <br>
+    <div class="accordion-item mt-3">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          How does the emergency SOS feature work?
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          The SOS feature allows users to send instant distress signals to their emergency contacts and local authorities with just one tap. It also shares the user’s real-time location for quick assistance.      </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Can I track my location in real-time?
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          Yes, the live tracking feature enables you to share your location with selected contacts, ensuring they can monitor your whereabouts in case of an emergency.      </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          How do I add emergency contacts?
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          You can add trusted family members or friends  under <strong> the "Emergency Contacts" section </strong>. These contacts will be notified if you trigger an SOS alert.      </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Can I report incidents through the app?
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          Yes, the app includes a complaint form that allows you to file reports directly with local law enforcement, including an option to link the complaint to a police FIR service.    </div>
+    </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Is my data safe and private?
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          Absolutely. We prioritize user privacy and ensure that all data, including location and emergency contacts, is encrypted and securely stored.    </div>
+    </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Can this app be used in different locations?
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          Yes, our app is designed to work across different cities and regions, with emergency services adapting to local law enforcement.    </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSeven">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+        What should I do if I face technical issues with the app?
+      </button>
+    </h2>
+    <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        If you experience any issues, you can reach out to our support team via <strong> the "Help" section </strong>, where we offer assistance 24/7.</div>
+  </div>
+  </div>
+    </div> <br><br>
+   <!-- Accordian end -->
+
+   <!-- Feedback form start  -->
+    <div class="mt-5">
+      <h1 class="text-center services">Feedback Form</h1>
+   <div class="container mt-5" id="container">
+    <h2>Share Your Feedback</h2>
+    <form id="feedbackForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" required>
+                <option value="">Select a subject</option>
+                <option value="general">General Feedback</option>
+                <option value="bug">Bug Report</option>
+                <option value="feature">Feature Request</option>
+                <option value="support">Support Issue</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Your Feedback</label>
+            <textarea id="message" rows="5" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>How would you rate your experience?</label>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5">★</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4">★</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3">★</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2">★</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1">★</label>
+            </div>
+        </div>
+        
+        <button type="submit" id="button">Submit Feedback</button>
+    </form>
+  
+</div>
+</div> <br> <br>
+   <!-- feedback form end  -->
+
+
+<!-- Privacy Policy start  -->
+<div class=" cont mt-5">
+  <div class="privacy-policy-header mt-5">
+      <h1>Privacy Policy</h1>
+      <p class="fs-4">Your safety and privacy are our top priorities</p>
+  </div>
+
+  <div class="privacy-policy-container ">
+      <div class="privacy-policy-nav ">
+          <ul>
+              <li><a href="#introduction">Introduction</a></li>
+              <li><a href="#information-collected">Information We Collect</a></li>
+              <li><a href="#information-use">How We Use Your Information</a></li>
+              <li><a href="#information-sharing">Information Sharing</a></li>
+              <li><a href="#data-security">Data Security</a></li>
+              <li><a href="#user-rights">Your Rights</a></li>
+              <li><a href="#updates">Policy Updates</a></li>
+              <li><a href="#contact">Contact Us</a></li>
+          </ul>
+      </div>
+
+      <div class="privacy-policy-content  ">
+          <div id="introduction" class="policy-section">
+              <h2>Introduction</h2>
+              <p>Welcome to the Women's Safety App. We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application or website.</p>
+              <p>Please read this policy carefully to understand our practices regarding your personal data and how we will treat it. By using our app, you acknowledge that you have read and understood this Privacy Policy.</p>
+              
+              <div class="highlight-box">
+                  <h3>Our Commitment to You</h3>
+                  <p>We understand the sensitive nature of the information you share with us. Your trust is our highest priority, and we are dedicated to maintaining the confidentiality and security of your personal information.</p>
+              </div>
+          </div>
+
+          <div id="information-collected" class="policy-section">
+              <h2>Information We Collect</h2>
+              <p>We collect several types of information to provide and improve our service to you:</p>
+              <ul>
+                  <li><strong>Personal Information:</strong> Name, email address, phone number, and emergency contact information.</li>
+                  <li><strong>Location Data:</strong> With your consent, we collect your precise location information to provide safety features.</li>
+                  <li><strong>Usage Data:</strong> Information about how you use our app, including the features you access and the time spent on various screens.</li>
+                  <li><strong>Device Information:</strong> Information about your mobile device, including the device model, operating system, unique device identifiers, and mobile network information.</li>
+              </ul>
+          </div>
+
+          <div id="information-use" class="policy-section">
+              <h2>How We Use Your Information</h2>
+              <p>We use the information we collect for various purposes, including to:</p>
+              <ul>
+                  <li>Provide and maintain our safety services</li>
+                  <li>Alert your emergency contacts when you activate safety features</li>
+                  <li>Improve and personalize your experience with our app</li>
+                  <li>Develop new features and services</li>
+                  <li>Communicate with you about updates and relevant safety information</li>
+                  <li>Monitor and analyze usage patterns and trends</li>
+              </ul>
+          </div>
+
+          <div id="information-sharing" class="policy-section">
+              <h2>Information Sharing</h2>
+              <p>We do not sell your personal information to third parties. We may share your information in the following situations:</p>
+              <ul>
+                  <li><strong>With Your Consent:</strong> We will share your information with your designated emergency contacts when you activate safety features.</li>
+                  <li><strong>Service Providers:</strong> We may share your information with third-party vendors who perform services on our behalf.</li>
+                  <li><strong>Legal Requirements:</strong> We may disclose your information if required by law or in response to valid legal processes.</li>
+                  <li><strong>Safety and Protection:</strong> We may share information to protect the safety of our users or the public.</li>
+              </ul>
+          </div>
+
+          <div id="data-security" class="policy-section">
+              <h2>Data Security</h2>
+              <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized or unlawful processing, accidental loss, destruction, or damage. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+              
+              <div class="highlight-box">
+                  <h3>Security Measures</h3>
+                  <p>We use industry-standard encryption, secure servers, and regular security assessments to protect your data. We also limit access to your personal information to employees who need it to perform their job functions.</p>
+              </div>
+          </div>
+
+          <div id="user-rights" class="policy-section">
+              <h2>Your Rights</h2>
+              <p>Depending on your location, you may have certain rights regarding your personal information, including:</p>
+              <ul>
+                  <li>The right to access your personal information</li>
+                  <li>The right to correct inaccurate or incomplete information</li>
+                  <li>The right to delete your personal information</li>
+                  <li>The right to restrict or object to processing of your information</li>
+                  <li>The right to data portability</li>
+                  <li>The right to withdraw consent at any time</li>
+              </ul>
+              <p>To exercise any of these rights, please contact us using the information provided in the "Contact Us" section.</p>
+          </div>
+
+          <div id="updates" class="policy-section">
+              <h2>Policy Updates</h2>
+              <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
+          </div>
+
+          <div id="contact" class="policy-section">
+              <h2>Contact Us</h2>
+              <p>If you have any questions about this Privacy Policy or our data practices, please contact us at:</p>
+              <p><strong>Email:</strong> privacy@womensafetyapp.com</p>
+              <p><strong>Phone:</strong> (555) 123-4567</p>
+              <p><strong>Address:</strong> 12 Street, New Delhi, India </p>
+          </div>
+      </div>
+
+      <div class="policy-date">
+          Last Updated: March 31, 2025
+      </div>
+  </div>
+</div>
+
+<a href="#" class="back-to-top" id="backToTop">
+  <span>↑</span>
+</a>
+<!-- Privacy Policy end  -->
+<script>
+  // Back to top button functionality
+  const backToTopButton = document.getElementById('backToTop');
+  
+  window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('visible');
+      } else {
+          backToTopButton.classList.remove('visible');
+      }
+  });
+  
+  backToTopButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+      });
+  });
+  
+  // Smooth scrolling for navigation links
+  document.querySelectorAll('.privacy-policy-nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          window.scrollTo({
+              top: targetElement.offsetTop - 100,
+              behavior: 'smooth'
+          });
+      });
+  });
+</script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

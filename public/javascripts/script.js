@@ -38,3 +38,22 @@ sliderTabs.forEach((tab, index) => {
 });
 updateIndicator(sliderTabs[0], 0);
 window.addEventListener("resize", () => updateIndicator(sliderTabs[swiper.activeIndex], 0));
+
+  $(document).ready(function () {
+    const toTop = $('.go_top');
+
+    // Scroll to top on click
+    toTop.on('click', function () {
+      $('html, body').animate({ scrollTop: 0 }, 400);
+    });
+
+    // Show/hide button on scroll
+    $(window).scroll(function () {
+      const topPos = $(this).scrollTop();
+      if (topPos > 750) {
+        toTop.css("opacity", "1");
+      } else {
+        toTop.css("opacity", "0");
+      }
+    });
+  });

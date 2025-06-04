@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Safety - Report Incident</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/complaint.css">
+  
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape">
+            <i class="fas fa-heart" style="font-size: 2rem; color: rgba(233, 30, 99, 0.3);"></i>
+        </div>
+        <div class="shape">
+            <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: rgba(142, 36, 170, 0.3);"></i>
+        </div>
+        <div class="shape">
+            <i class="fas fa-hands-helping" style="font-size: 2rem; color: rgba(240, 98, 146, 0.3);"></i>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-header animate__animated animate__fadeInDown">
+            <h1><i class="fas fa-shield-alt me-3"></i>Women's Safety Portal</h1>
+            <p>Your voice matters. Report incidents safely and confidentially. We're here to help and support you.</p>
+        </div>
+
+        <div class="main-card animate__animated animate__fadeInUp">
+            <div class="card-body">
+                <div class="emergency-section">
+                    <h4><i class="fas fa-exclamation-triangle me-2"></i>Emergency?</h4>
+                    <p>If you're in immediate danger, please call emergency services</p>
+                    <button class="btn emergency-btn pulse" type="button" onclick="showEmergencyContacts()">
+                        <i class="fas fa-phone me-2"></i>Emergency Contacts
+                    </button>
+                </div>
+
+                <div class="step-indicator">
+                    <div class="step active" data-step="1">1</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="2">2</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="3">3</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="4">4</div>
+                </div>
+
+                <form id="complaintForm" enctype="multipart/form-data">
+                    <!-- Step 1: Incident Type -->
+                    <div class="form-step active" data-step="1">
+                        <h3 class="mb-4 text-center">What type of incident would you like to report?</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <input type="radio" class="btn-check" name="incidentType" id="harassment" value="harassment">
+                                    <label class="btn" for="harassment">
+                                        <i class="fas fa-user-times me-2"></i>Harassment
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="btn-group-toggle">
+                                    <input type="radio" class="btn-check" name="incidentType" id="assault" value="assault">
+                                    <label class="btn" for="assault">
+                                        <i class="fas fa-hand-paper me-2"></i>Physical Assault
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="btn-group-toggle">
+                                    <input type="radio" class="btn-check" name="incidentType" id="stalking" value="stalking">
+                                    <label class="btn" for="stalking">
+                                        <i class="fas fa-eye me-2"></i>Stalking
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="btn-group-toggle">
+                                    <input type="radio" class="btn-check" name="incidentType" id="cybercrime" value="cybercrime">
+                                    <label class="btn" for="cybercrime">
+                                        <i class="fas fa-laptop me-2"></i>Cyber Crime
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="btn-group-toggle">
+                                    <input type="radio" class="btn-check" name="incidentType" id="domestic" value="domestic">
+                                    <label class="btn" for="domestic">
+                                        <i class="fas fa-home me-2"></i>Domestic Violence
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="btn-group-toggle">
+                                    <input type="radio" class="btn-check" name="incidentType" id="other" value="other">
+                                    <label class="btn" for="other">
+                                        <i class="fas fa-ellipsis-h me-2"></i>Other
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-floating" id="otherIncidentType" style="display: none;">
+                            <input type="text" class="form-control" id="otherIncidentTypeText" placeholder="Please specify">
+                            <label for="otherIncidentTypeText">Please specify the incident type</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <select class="form-select" id="urgencyLevel" name="urgencyLevel" required>
+                                <option value="">Select urgency level</option>
+                                <option value="low">Low - Can wait for response</option>
+                                <option value="medium">Medium - Response needed soon</option>
+                                <option value="high">High - Urgent response needed</option>
+                                <option value="critical">Critical - Immediate attention required</option>
+                            </select>
+                            <label for="urgencyLevel">Urgency Level</label>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Incident Details -->
+                    <div class="form-step" data-step="2">
+                        <h3 class="mb-4 text-center">Tell us more about the incident</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="incidentDate" name="incidentDate" required>
+                                    <label for="incidentDate">Date of Incident</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="time" class="form-control" id="incidentTime" name="incidentTime">
+                                    <label for="incidentTime">Time of Incident (if known)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="incidentLocation" name="incidentLocation" placeholder="Location">
+                            <label for="incidentLocation">Location of Incident</label>
+                        </div>
+
+                        <div class="location-info">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="useCurrentLocation">
+                                <label class="form-check-label" for="useCurrentLocation">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Use my current location
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-floating">
+                            <textarea class="form-control" id="incidentDescription" name="incidentDescription" 
+                                      placeholder="Description" style="height: 120px;" required></textarea>
+                            <label for="incidentDescription">Detailed Description of the Incident</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <textarea class="form-control" id="suspectDescription" name="suspectDescription" 
+                                      placeholder="Suspect description" style="height: 100px;"></textarea>
+                            <label for="suspectDescription">Description of Suspect (if applicable)</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="witnessesPresent" name="witnessesPresent">
+                            <label class="form-check-label" for="witnessesPresent">
+                                Were there any witnesses present?
+                            </label>
+                        </div>
+
+                        <div class="form-floating mt-3" id="witnessDetails" style="display: none;">
+                            <textarea class="form-control" id="witnessInfo" name="witnessInfo" 
+                                      placeholder="Witness details" style="height: 80px;"></textarea>
+                            <label for="witnessInfo">Witness Information (optional)</label>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Evidence & Contact -->
+                    <div class="form-step" data-step="3">
+                        <h3 class="mb-4 text-center">Evidence and Contact Information</h3>
+                        
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted"></i>
+                            <p><strong>Upload Evidence</strong></p>
+                            <p class="text-muted">Photos, videos, documents, screenshots, or audio recordings</p>
+                            <input type="file" id="evidenceFiles" name="evidenceFiles" multiple 
+                                   accept="image/*,video/*,audio/*,.pdf,.doc,.docx" style="display: none;">
+                            <button type="button" class="btn btn-outline-primary mt-2" onclick="document.getElementById('evidenceFiles').click()">
+                                <i class="fas fa-folder-open me-2"></i>Choose Files
+                            </button>
+                        </div>
+                        <div class="uploaded-files" id="uploadedFiles"></div>
+
+                        <div class="anonymous-toggle">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="reportAnonymously" name="reportAnonymously">
+                                <label class="form-check-label" for="reportAnonymously">
+                                    <i class="fas fa-user-secret me-2"></i><strong>Report Anonymously</strong>
+                                    <br><small class="text-muted">Your identity will not be revealed. However, we won't be able to contact you for updates.</small>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="contactInformation">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="reporterName" name="reporterName" value="<%= finduser.fullname%>">
+                                        <label for="reporterName">Your Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="tel" class="form-control" id="reporterPhone" name="reporterPhone" value="<%= finduser.phone%>">
+                                        <label for="reporterPhone">Phone Number</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="reporterEmail" name="reporterEmail" value="<%= finduser.email%>">
+                                <label for="reporterEmail">Email Address</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <select class="form-select" id="contactPreference" name="contactPreference">
+                                    <option value="email">Email</option>
+                                    <option value="phone">Phone Call</option>
+                                    <option value="sms">SMS/Text Message</option>
+                                    <option value="no-contact">Please don't contact me</option>
+                                </select>
+                                <label for="contactPreference">Preferred Contact Method</label>
+                            </div>
+                        </div>
+
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="policeReported" name="policeReported">
+                            <label class="form-check-label" for="policeReported">
+                                I have already reported this incident to the police
+                            </label>
+                        </div>
+
+                        <div class="form-floating mt-3" id="policeReportDetails" style="display: none;">
+                            <input type="text" class="form-control" id="policeReportNumber" name="policeReportNumber">
+                            <label for="policeReportNumber">Police Report Number (if available)</label>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Review & Submit -->
+                    <div class="form-step" data-step="4">
+                        <div id="reviewSection">
+                            <h3 class="mb-4 text-center">Review Your Report</h3>
+                            <div id="reportSummary" class="mb-4"></div>
+                            
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="confirmAccuracy" required>
+                                <label class="form-check-label" for="confirmAccuracy">
+                                    I confirm that the information provided is accurate to the best of my knowledge
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="consentToProcess" required>
+                                <label class="form-check-label" for="consentToProcess">
+                                    I consent to the processing of this information for investigation purposes
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="successSection" class="success-animation" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3 class="text-success mb-3">Report Submitted Successfully</h3>
+                            <p class="mb-3">Your complaint has been received and will be reviewed by our team.</p>
+                            <div class="alert alert-info">
+                                <strong>Reference Number: </strong><span id="referenceNumber"></span>
+                                <br><small>Please save this number for future reference</small>
+                            </div>
+                            <button type="button" class="btn btn-primary-custom btn-custom" onclick="window.location.reload()">
+                                Submit Another Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="btn btn-outline-custom btn-custom" id="prevBtn" onclick="changeStep(-1)" style="display: none;">
+                            <i class="fas fa-arrow-left me-2"></i>Previous
+                        </button>
+                        <button type="button" class="btn btn-primary-custom btn-custom" id="nextBtn" onclick="changeStep(1)">
+                            Next<i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                        <button type="submit" class="btn btn-primary-custom btn-custom" id="submitBtn" style="display: none;">
+                            <i class="fas fa-paper-plane me-2"></i>Submit Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+   <script src="/javascripts/complaint.js"></script>
+   <script>document.getElementById('complaintForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const response = await fetch('/complaints', {
+        method: 'POST',
+        body: formData
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+        document.getElementById('referenceNumber').innerText = result.referenceId;
+        // Show success section
+    } else {
+        alert('Failed to submit complaint');
+    }
+});
+</script>
+</body>
+</html>

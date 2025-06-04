@@ -16,16 +16,103 @@
         <link rel="stylesheet" href="/stylesheets/style.css">
         <link rel="stylesheet" href="responsive.css">
         <link rel="stylesheet" href="/stylesheets/mobile-responsive.css">
-  
+  <style>
+    /* -------------Preloader-Css-Start-------------- */
+
+/* Preloader */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 999999;
+}
+
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: darkmagenta;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: purple;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: darkmagenta;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+  </style>
   
   <title>Home Page</title>
 </head>
 <body>
+   <!-- Preloader -->
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
   <!-- Navbar Start  -->
    <div class="content d-none d-md-block">
   <nav class="navbar navbar-expand-lg navbar-dark ">
     <div class="container ">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/home">
         <img src="../images/Empower Her (1).png" alt="" width="55" height="55" class="rounded-circle">
       &nbsp; <b class="logo-text text-white">  EmpowerHer </b></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,26 +121,26 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto  mb-2 mb-lg-0 gap-4 ">
           <li class="nav-item ">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="/home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">Live Tracker</a>
+            <a class="nav-link" href="/popup" >Live Tracker</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                Services 
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Helpline Numbers </a></li>
-              <li><a class="dropdown-item" href="#">Emergency Contact Numbers</a></li>
+              <li><a class="dropdown-item" href="/map">Emergency Services </a></li>
+              <li><a class="dropdown-item" href="/addcontact">Emergency Contact Numbers</a></li>
               
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Education</a>
+            <a class="nav-link" href="/complaint">Grievance</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
+            <a class="nav-link" href="/help">Help</a>
           </li>
         </ul>
         
@@ -63,14 +150,18 @@
  <!-- Navbar End -->
 
  <!-- Second Header Start -->
-  <div class="container mt-md-2 mt-1 d-flex ">
+  <div class="container  d-flex ">
+    
     <div class="content d-flex mt-3 gap-3">
-    <img src="../images/google-maps.png" alt=""  alt="" width="20" height="20">
-    <p> Your Location </p>
+      <% if (user) { %>
+      <img src="../images/user.png" alt=""  alt="" width="30" height="30">
+    <p class="fw-bold fs-6"> Hi <%= user.fullname %> </p>
+      <% } %>
   </div>
-  <div class="container-eg-btn-4  ms-auto">
+
+  <div class="container-eg-btn-4 mt-1 ms-auto">
   <a href="/logout" class="button button-7 gap-3">
-    <img src="../images/user-logout.png" alt=""  alt="" width="25" height="25">
+    <img src="../images/user-logout.png" alt=""  alt="" width="25" height="23">
    &nbsp; &nbsp;  &nbsp;  <b> Logout</b></a>
 </div>
   </div>
@@ -78,14 +169,14 @@
 
 
 <!-- Carousel Start -->
-<div class="slider-container mt-md-3 mt-2">
+<div class="slider-container ">
   <!-- Slider List Items -->
   <div class="slider-wrapper swiper-wrapper">
     <div class="slider-item swiper-slide" id="first">
       <div class="slide-content">
         <h3 class="slide-subtitle">Keep Calm</h3> <br>
         <h2 class="slide-title">After pressing SOS button you will get help in 10 seconds</h2>
-        <a href="#" class="slide-button d-none d-md-block"><span>learn More</span></a>
+        <a href="/map" class="slide-button d-none d-md-block"><span>learn More</span></a>
         <a href="#second" class="slide-button d-md-none" ><span>Next</span></a>
       </div>
     </div>
@@ -94,16 +185,16 @@
         <h3 class="slide-subtitle">Add Emergency Contacts</h3> <br>
         <h2 class="slide-title">You can add your family and friends to get help with them</h2>
         <!-- //website -->
-        <a href="#" class="slide-button d-none d-md-block"><span>learn More</span></a> 
+        <a href="/addcontact" class="slide-button d-none d-md-block"><span>learn More</span></a>
         <!-- //app -->
         <a href="#third" class="slide-button d-md-none" ><span>Next</span></a> 
       </div>
     </div>
     <div class="slider-item swiper-slide" id="third">
       <div class="slide-content">
-        <h3 class="slide-subtitle">Self Defence Education</h3> <br>
-        <h2 class="slide-title">Awareness, self-defence techniques videos, safety tips, and self defence laws</h2>
-        <a href="#" class="slide-button d-none d-md-block"><span>learn More</span></a>
+        <h3 class="slide-subtitle">Help and Support</h3> <br>
+        <h2 class="slide-title">You are never alone. Seeking help is a sign of strength, not weakness. We're here to listen, support, and protect.</h2>
+        <a href="/help" class="slide-button d-none d-md-block"><span>learn More</span></a>
         <a href="#fourth" class="slide-button d-md-none" ><span>Next</span></a>
       </div>
     </div>
@@ -111,7 +202,7 @@
       <div class="slide-content">
         <h3 class="slide-subtitle">Live Location Tracker</h3> <br>
         <h2 class="slide-title">Your emergency contacts are easily track your location</h2>
-        <a href="#" class="slide-button d-none d-md-block"><span>learn More</span></a>
+        <a href="/popup" class="slide-button d-none d-md-block"><span>learn More</span></a>
         <a href="#five" class="slide-button d-md-none" ><span>Next</span></a>
       </div>
     </div>
@@ -119,7 +210,7 @@
       <div class="slide-content">
         <h3 class="slide-subtitle">Emergency Services</h3> <br>
         <h2 class="slide-title">You can directly call police, women helpine number etc.</h2>
-        <a href="#" class="slide-button d-none d-md-block"><span>learn More</span></a>
+        <a href="/complaint" class="slide-button d-none d-md-block"><span>learn More</span></a>
         <a href="./mobile-view.html" class="slide-button d-md-none" ><span>Next</span></a>
       </div>
     </div>
@@ -130,7 +221,7 @@
       <div class="slider-indicator"></div>
       <li class="slider-tab current">Keep Calm</li>
       <li class="slider-tab">Add Emergency Contacts</li>
-      <li class="slider-tab">Self Defence Education</li>
+      <li class="slider-tab">Help and Support</li>
       <li class="slider-tab">Live Location Tracker</li>
       <li class="slider-tab">Emergency Services</li>
     </ul>
@@ -166,11 +257,11 @@
       </div>
   
       <div class="box red  w-50">
-        <h2>Emergency Services</h2>
-        <p>It provide instant access to helplines, police assistance, and trusted contacts, ensuring swift response in critical situations.</p>
+        <h2>Near Emergency Services</h2>
+        <p> You can easily find nearby emergency services such as police stations, hospitals, hotels, and other essential facilities in your nearby area.</p>
         <div class="container-eg-btn-4 me-3">
           
-          <button class="button button-7 gap-3">
+          <button onclick="window.location.href='/map'" class="button button-7 gap-3">
             Next
           </button>
        
@@ -183,7 +274,7 @@
         <p>The complaint form in a women's safety application directly links to the police FIR service, enabling users to report incidents quickly and seek legal assistance.</p>
         <div class="container-eg-btn-4 me-3">
           
-          <button class="button button-7 gap-3">
+          <button  onclick="window.location.href='/complaint'" class="button button-7 gap-3">
             Next
           </button>
        
@@ -304,7 +395,7 @@
 <!-- testimonials section end -->
 
 <!-- Accordian start -->
-<div class="accordion  container mt-5" id="accordionExample">
+<div class="accordion  container mt-5 mb-5" id="accordionExample">
   <h1 class="text-center services"> FAQ'S </h1>
   <div class="accordion-item mt-3">
     <h2 class="accordion-header" id="headingOne">
@@ -410,7 +501,9 @@
 
 	</ul>
 	<p>Made with 🤍 by Priya</p>
+    
 </footer>
+
    </div>
  <!-- footer End -->
 
@@ -419,23 +512,7 @@
  <!-- Modal Start -->
 <!-- Button trigger modal -->
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Please add your Emergency Contacts</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          You dont have any emergency contact numbers to share your location in emergency. 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button onclick="" type="button" class="btn" style="background-color:rgb(216, 59, 85); color: aliceblue;">Add Contacts</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  
    <!-- Modal End  -->
 
 <!-- mobile-view content start -->
@@ -455,7 +532,7 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/popup" data-bs-toggle="modal" data-bs-target="#exampleModal">Live Tracker</a>
+            <a class="nav-link" href="/popup">Live Tracker</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -471,7 +548,7 @@
             <a class="nav-link" href="#">Education</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
+            <a class="nav-link" href="/help">Help</a>
           </li>
         </ul>
         
@@ -481,17 +558,22 @@
  <!-- Navbar End -->
 
  <!-- Second Header Start -->
-  <div class="container mt-md-2 mt-1 d-flex ">
-    <div class="content d-flex mt-3 gap-3">
-    <img src="../images/google-maps.png" alt=""  alt="" width="20" height="20">
-    <p> Your Location </p>
+<div class="container d-flex justify-content-between align-items-center mt-3">
+  <div class="content d-flex align-items-center gap-2">
+    <% if (user) { %>
+      <img src="../images/user.png" alt="User" width="30" height="30" />
+      <p class="fw-bold fs-6 mb-0">Hi <%= user.fullname %></p>
+    <% } %>
   </div>
-  <div class="container-eg-btn-4  ms-auto">
-  <a href="/logout" class="button button-7 gap-3">
-    <img src="../images/user-logout.png" alt=""  alt="" width="25" height="25">
-   &nbsp; &nbsp;  &nbsp;  <b> Logout</b></a>
+
+  <div class="container-eg-btn-4">
+    <a href="/logout" class="button button-7 d-flex align-items-center gap-2">
+      <img src="../images/user-logout.png" alt="Logout" width="25" height="25" />
+      <b>Logout</b>
+    </a>
+  </div>
 </div>
-  </div>
+
   <!-- Second Header End  -->
 
  <!-- Our Services Start -->
@@ -513,11 +595,11 @@
       </div>
   
       <div class="box red ms-0  w-100 h-100">
-        <h2>Emergency Services</h2>
-        <p>It provide instant access to helplines, police assistance, and trusted contacts, ensuring swift response in critical situations.</p>
+        <h2>Near Emergency Services</h2>
+        <p> You can easily find nearby emergency services such as police stations, hospitals, hotels, and other essential facilities in your nearby area.</p>
         <div class="container-eg-btn-4 me-3 gap-5">
           
-          <button class="button button-7">
+          <button onclick="window.location.href='/map'" class="button button-7">
             Next
           </button>
        
@@ -531,7 +613,7 @@
         <p>The complaint form in a women's safety application directly links to the police FIR service, enabling users to report incidents quickly and seek legal assistance.</p>
         <div class="container-eg-btn-4 me-3 gap-5">
           
-          <button class="button button-7 ">
+          <button  onclick="window.location.href='/complaint'" class="button button-7 ">
             Next
           </button>
        
@@ -737,6 +819,11 @@
  <!-- Accordian end -->
  </div>
 <!-- mobile-view content end -->
+ <div class="go_top">
+            <span><img src="../images/go_top.png" alt="image" ></span>
+        </div>
+
+ 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
@@ -745,6 +832,17 @@
 <script src="javascripts/script.js"></script>
 <script src="javascripts/test.js"></script>
 
+<script>
+  // Preloader JS
 
+function preloader_fade() {
+  $("#preloader").fadeOut('slow');
+}
+
+$(document).ready(function() {
+  window.setTimeout("preloader_fade();", 500); //call fade in .5 seconds
+}
+)
+</script>
 </body>
 </html>

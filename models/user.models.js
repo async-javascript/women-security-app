@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
-    Fullname:{
+    fullname:{
         type:String,
         required:true,
         trim:true,
@@ -36,8 +36,11 @@ const userSchema = new mongoose.Schema({
      contact:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Addcontact'
+     }],
+      complaint:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Complaint'
      }]
-     
 
 })
 const user = mongoose.model("user",userSchema)

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Smooth Tracking</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+<script>
+  const destination = L.latLng(<%= lat %>, <%= lng %>); // Replace with dynamic values from backend
+
+  const map = L.map('map').setView([0, 0], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  let userMarker = null;
+  let routingControl = null;
+  let lastPosition = null;
+
+  function isSignificantChange(newPos, lastPos, thresholdMeters = 1) {
+    return map.distance(newPos, lastPos) > thresholdMeters;
+  }
+
+  function animateMarker(marker, toLatLng) {
+    const duration = 500; // milliseconds
+    const frames = 20;
+    const interval = duration / frames;
+    const fromLatLng = marker.getLatLng();
+    let step = 0;
+
+    const latDiff = (toLatLng.lat - fromLatLng.lat) / frames;
+    const lngDiff = (toLatLng.lng - fromLatLng.lng) / frames;
+
+    const animation = setInterval(() => {
+      if (step >= frames) {
+        clearInterval(animation);
+        marker.setLatLng(toLatLng);
+        return;
+      }
+
+      const lat = fromLatLng.lat + latDiff * step;
+      const lng = fromLatLng.lng + lngDiff * step;
+      marker.setLatLng([lat, lng]);
+      step++;
+    }, interval);
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(
+      (position) => {
+        const userLatLng = L.latLng(position.coords.latitude, position.coords.longitude);
+
+        if (!userMarker) {
+          userMarker = L.marker(userLatLng).addTo(map).bindPopup("You are here").openPopup();
+          map.setView(userLatLng, 15);
+
+          routingControl = L.Routing.control({
+            waypoints: [userLatLng, destination],
+            routeWhileDragging: false,
+            addWaypoints: false,
+            draggableWaypoints: false,
+            showAlternatives: false,
+          }).addTo(map);
+
+        } else if (isSignificantChange(userLatLng, lastPosition || userLatLng)) {
+          animateMarker(userMarker, userLatLng);
+          routingControl.setWaypoints([userLatLng, destination]);
+        }
+
+        lastPosition = userLatLng;
+      },
+      (err) => {
+        alert("Location error: " + err.message);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
+  } else {
+    alert("Geolocation is not supported by your browser.");
+  }
+</script>
+
+</body>
+</html>

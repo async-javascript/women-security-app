@@ -29,26 +29,26 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto  mb-2 mb-lg-0 gap-4 ">
           <li class="nav-item ">
-            <a class="nav-link " aria-current="page" href="#">Home</a>
+            <a class="nav-link " aria-current="page" href="/home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Live Tracker</a>
+            <a class="nav-link active" href="/popup">Live Tracker</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                Services 
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Helpline Numbers </a></li>
-              <li><a class="dropdown-item" href="#">Emergency Contact Numbers</a></li>
+              <li><a class="dropdown-item" href="/map">Emergency Services </a></li>
+              <li><a class="dropdown-item" href="/addContact">Emergency Contact Numbers</a></li>
               
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Education</a>
+            <a class="nav-link" href="/complaint">Grievance</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
+            <a class="nav-link" href="/help">Help</a>
           </li>
         </ul>
         
@@ -71,13 +71,13 @@
           <h1>Add Contacts</h1> <br>
           <div class="form-item">
 
-            <input type="text"  name="usercontact">
-            <label>Name:</label>
+            <input type="text"  name="usercontact" required >
+            <label>Enter Name:</label>
           </div>
          
           <div class="form-item">
-            <input type="email"  name="email">
-            <label>Email:</label>
+            <input type="email"  name="email" required>
+            <label>Enter Gmail Id :</label>
           </div>
           <button class="submit-btn">Submit</button>  
         </form>
