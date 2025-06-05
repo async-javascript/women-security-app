@@ -163,6 +163,7 @@ body.dark .nav-links li a:hover .link-name{
     align-items: center;
     white-space: nowrap;
 }
+
 .menu-items .mode-toggle{
     position: absolute;
     right: 14px;
@@ -407,6 +408,27 @@ nav.close ~ .dashboard .top{
         margin-top: 15px;
     }
 }
+@media (max-width: 768px) {
+  .activity .activity-data {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .activity-data .data {
+    width: 100%;
+  }
+
+  .activity-data .data-title {
+    margin-bottom: 10px;
+  }
+
+  .activity-data .data .data-list {
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.5;
+  }
+}
 @media (max-width: 560px) {
     .dash-content .boxes .box{
         width: 100% ;
@@ -452,45 +474,30 @@ nav.close ~ .dashboard .top{
         width: 100%;
     }
 }
-@media (max-width: 768px) {
-  .activity .activity-data {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    overflow-x: auto;
-  }
 
-  .activity-data .data {
-    width: 100%;
-    margin: 0;
-  }
-
-  .activity-data .data .data-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    white-space: normal;
-    word-wrap: break-word;
-    margin-bottom: 15px;
-  }
-
-  .send-contact-btn,
-  .forr {
-    margin-top: 8px;
-    margin-left: 0;
-    width: 100%;
-  }
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
-@media (max-width: 480px) {
-  .top .search-box {
-    margin: 0;
-    width: 100%;
-  }
+.contact-info {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
 
-  .dashboard .top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
+.contact-actions {
+  display: flex;
+  gap: 10px;
+}
+.contacts-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
 }
